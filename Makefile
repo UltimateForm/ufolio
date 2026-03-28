@@ -10,4 +10,4 @@ clean:
 docker-build:
 	docker build -t $(package) .
 docker-run: docker-build
-	docker run -it --rm $(package)
+	docker run -it --rm -p 8080:8080 $(package)
