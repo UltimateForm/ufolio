@@ -1,0 +1,28 @@
+{{define "layout"}}
+<html>
+    <head>
+        <title>Ufolio</title>
+        <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js"></script>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="https://unpkg.com/98.css" />
+        <link rel="stylesheet" href="/static/index.css" />
+    </head>
+    <body>
+        {{ template "main" . }}
+        <div class="start-bar">
+            <button class="">
+                <img src="/static/start.png" alt="About Me" />
+                <span>About Me</span>
+            </button>
+            <div class="divider"></div>
+            <button>about tech</button>
+            <button>projects</button>
+            <button>contact me</button>
+            <div class="window start-menu">
+                <div>UltimateForm</div>
+                <div>Loem ipsum  </div>
+            </div>
+        </div>
+    </body>
+</html>
+{{end}}
