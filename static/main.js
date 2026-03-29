@@ -53,13 +53,14 @@ document.addEventListener("DOMContentLoaded", function () {
     dragElement(elmnt);
   });
 
-  // Toggle start menu visibility on About Me button click
-  const aboutMeBtn = document.querySelector(".start-bar button");
-  const startMenu = document.querySelector(".start-menu");
-  if (aboutMeBtn && startMenu) {
-    aboutMeBtn.addEventListener("click", function () {
-      aboutMeBtn.classList.toggle("active");
-      startMenu.style.opacity = startMenu.style.opacity === "0" ? "1" : "0";
+  document.querySelectorAll("button[aria-controls]").forEach((btn) => {
+    btn.addEventListener("click", function () {
+      const panelId = btn.getAttribute("aria-controls");
+      const panel = document.getElementById(panelId);
+      const isOpen = btn.getAttribute("aria-expanded") === "true";
+      console.log(`aria-expanded: ${isOpen}`);
+      btn.setAttribute("aria-expanded", !isOpen);
+      panel.setAttribute("aria-hidden", isOpen);
     });
-  }
+  });
 });

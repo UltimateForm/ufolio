@@ -11,36 +11,29 @@
     <body>
         {{ template "main" . }}
         <div class="start-bar">
-            <button>
+            <button aria-controls="about-me-window">
                 <img src="/static/start.png" alt="About Me" />
                 <span>About Me</span>
             </button>
             <div class="divider"></div>
-            <button>about tech</button>
-            <button>projects</button>
-            <button>contact me</button>
-            <div class="window start-menu" style="opacity: 0">
-                <div class="start-menu-bar">
-                    <a
-                        href="https://github.com/UltimateForm"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        >https://github.com/UltimateForm</a
-                    >
-                </div>
-                <div class="me">
-                    <h1>UltimateForm</h1>
-                    <p>
-                        This is my [in development] portfolio. Here will see a
-                        lot of what I worked on + a few tidbits about myself.
-                    </p>
-                    <p>
-                        Although, this div should be "about me" so yeah I'm a
-                        fullstack engineer (10 years of experience)employed at
-                        [redacted] doing all kind of work, I code a lot in my
-                        free time, going through a golang phase right now.
-                    </p>
-                </div>
+            <button>
+                <img src="/static/tech.png" alt="about tech" />
+                <span>about tech</span>
+            </button>
+            <button>
+                <img src="/static/projects.png" alt="projects" />
+                <span>projects</span>
+            </button>
+            <button>
+                <img src="/static/contact.png" alt="contact me" />
+                <span>contact me</span>
+            </button>
+            <div
+                class="window start-menu"
+                id="about-me-window"
+                aria-hidden="true"
+            >
+                {{ template "about-me" . }}
             </div>
         </div>
     </body>
