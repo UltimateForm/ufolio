@@ -5,10 +5,18 @@ import (
 	"log"
 	"net/http"
 	"os"
+
+	"github.com/UltimateForm/ufolio/internal/githubapi"
 )
 
 func RunAPI() {
 	log.Println("Starting API server...")
+	ghToken := os.Getenv("GITHUB_TOKEN")
+	if ghToken == "" {
+		log.Fatalf("GITHUB_TOKEN environment variable not set")
+	}
+	ghClient := githubapi.New(ghToken)
+
 	wd, err := os.Getwd()
 	if err != nil {
 		log.Fatalf("Failed to get working directory: %v", err)
@@ -19,8 +27,12 @@ func RunAPI() {
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		templ := template.Must(template.ParseGlob("templates/*.html"))
-
-		err := templ.ExecuteTemplate(w, "layout", map[string]string{"Arg": "worlds"})
+		repos, err := ghClient.GetRepos(r.Context())
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		err = templ.ExecuteTemplate(w, "layout", map[string]any{"Repos": repos})
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
