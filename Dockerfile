@@ -10,6 +10,5 @@ WORKDIR /app
 COPY --from=builder /app/.out/ufolio .
 COPY --from=builder /app/static ./static
 COPY --from=builder /app/templates ./templates
-RUN mkdir -p /root/.ufolio
 EXPOSE 8080
 CMD ["./ufolio"]

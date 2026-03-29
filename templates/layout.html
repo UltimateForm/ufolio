@@ -6,11 +6,12 @@
         <meta charset="UTF-8" />
         <link rel="stylesheet" href="https://unpkg.com/98.css" />
         <link rel="stylesheet" href="/static/index.css" />
+        <script src="/static/main.js"></script>
     </head>
     <body>
         {{ template "main" . }}
         <div class="start-bar">
-            <button class="">
+            <button>
                 <img src="/static/start.png" alt="About Me" />
                 <span>About Me</span>
             </button>
@@ -18,9 +19,28 @@
             <button>about tech</button>
             <button>projects</button>
             <button>contact me</button>
-            <div class="window start-menu">
-                <div>UltimateForm</div>
-                <div>Loem ipsum  </div>
+            <div class="window start-menu" style="opacity: 0">
+                <div class="start-menu-bar">
+                    <a
+                        href="https://github.com/UltimateForm"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        >https://github.com/UltimateForm</a
+                    >
+                </div>
+                <div class="me">
+                    <h1>UltimateForm</h1>
+                    <p>
+                        This is my [in development] portfolio. Here will see a
+                        lot of what I worked on + a few tidbits about myself.
+                    </p>
+                    <p>
+                        Although, this div should be "about me" so yeah I'm a
+                        fullstack engineer (10 years of experience)employed at
+                        [redacted] doing all kind of work, I code a lot in my
+                        free time, going through a golang phase right now.
+                    </p>
+                </div>
             </div>
         </div>
     </body>

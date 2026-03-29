@@ -1,5 +1,16 @@
 body {
     background-color: #008080;
+    width: 100%;
+    height: 100%;
+}
+
+.window {
+    position: absolute;
+    margin: auto;
+}
+
+.window:not(.start-menu) .title-bar {
+    cursor: move;
 }
 
 .start-bar {
@@ -24,6 +35,14 @@ body {
     margin: 2px;
 }
 
+.start-bar button.active {
+    box-shadow:
+        inset -1px -1px #ffffff,
+        inset 1px 1px #0a0a0a,
+        inset -2px -2px #dfdfdf,
+        inset 2px 2px #808080;
+}
+
 .start-bar button img {
     height: 14px;
 }
@@ -43,11 +62,40 @@ body {
 .start-menu {
     position: absolute;
     bottom: 100%;
-    width: 500px;
+    width: 300px;
     color: rgb(0, 0, 0);
+    display: grid;
+    grid-auto-flow: column;
+}
+
+.start-menu .me {
+    text-overflow: wrap;
+    overflow-wrap: break-word;
+    padding: 16px 32px 16px 32px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 5px;
-    margin-left: 2px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.start-menu .me h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.start-menu-bar {
+    writing-mode: vertical-rl;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(0deg, navy, #1084d0);
+    justify-content: space-between;
+    padding: 3px 2px 3px 3px;
+}
+
+.start-menu-bar a {
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+    text-decoration: none;
 }
