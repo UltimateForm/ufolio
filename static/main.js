@@ -45,6 +45,22 @@ function dragElement(elmnt) {
   }
 }
 
+function textToRgb(repoName) {
+  let hash = 0;
+  for (let i = 0; i < repoName.length; i++) {
+    hash = (hash << 5) - hash + repoName.charCodeAt(i);
+    hash = hash & hash;
+  }
+
+  const r = (hash >> 0) & 255;
+  const g = (hash >> 8) & 255;
+  const b = (hash >> 16) & 255;
+
+  return {
+    bg: `rgb(${r}, ${g}, ${b})`,
+    text: `rgb(${255 - r}, ${255 - g}, ${255 - b})`,
+  };
+}
 document.addEventListener("DOMContentLoaded", function () {
   const wins = document.querySelectorAll(".window:not(.start-menu)");
   console.log(`drag.js found ${wins.length} windows`);
@@ -62,5 +78,15 @@ document.addEventListener("DOMContentLoaded", function () {
       btn.setAttribute("aria-expanded", !isOpen);
       panel.setAttribute("aria-hidden", isOpen);
     });
+  });
+
+  document.querySelectorAll(".repo").forEach((repo) => {
+    const name = repo.getAttribute("data-repo-name");
+    const svg = repo.querySelector("svg");
+    if (svg) {
+      const colors = textToRgb(name);
+      svg.style.setProperty("--bg-color", colors.bg);
+      svg.style.setProperty("--icon-color", colors.text);
+    }
   });
 });

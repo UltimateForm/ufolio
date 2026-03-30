@@ -3,6 +3,7 @@ body {
     width: 100%;
     height: 100%;
     overflow: hidden;
+    margin: 0;
 }
 
 .window {
@@ -110,4 +111,42 @@ button img {
     color: rgb(255, 255, 255);
     font-weight: 700;
     text-decoration: none;
+}
+
+.repos {
+    display: grid;
+    grid-template-rows: repeat(auto-fit, 75px);
+    grid-auto-flow: column;
+    grid-auto-columns: 70px;
+    height: calc(100% - 28px);
+    width: 100%;
+    box-sizing: border-box;
+    column-gap: 0;
+    row-gap: 1rem;
+}
+
+.repo {
+    display: grid;
+    grid-auto-flow: row;
+    gap: 8px;
+    align-items: start;
+    place-items: center;
+    text-align: center;
+    align-content: start;
+    text-decoration: none;
+}
+.repo img {
+    width: 32px;
+}
+
+.repo span {
+    color: white;
+    font-size: 11px;
+    display: block;
+    width: 70px;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    font-size: 11px;
+    line-height: 1.2;
+    font-weight: 500;
 }
