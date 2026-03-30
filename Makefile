@@ -6,6 +6,7 @@ ifneq (,$(wildcard .env))
 endif
 
 export GITHUB_TOKEN
+export X_EDGE_SIGNATURE
 
 build: clean
 	go build -o $(out_dir)/$(package)
