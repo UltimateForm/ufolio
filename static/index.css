@@ -71,7 +71,7 @@ button img {
 .start-menu {
     position: absolute;
     bottom: 100%;
-    width: 300px;
+    width: 400px;
     color: rgb(0, 0, 0);
     display: grid;
     grid-auto-flow: column;
@@ -90,6 +90,7 @@ button img {
     align-items: center;
     width: 100%;
     box-sizing: border-box;
+    font-size: 1.2rem;
 }
 
 .start-menu .me h1 {
@@ -117,6 +118,7 @@ button img {
     display: grid;
     grid-template-rows: repeat(auto-fit, 75px);
     grid-auto-flow: column;
+    padding-top: 1rem;
     grid-auto-columns: 70px;
     height: calc(100% - 28px);
     width: 100%;
