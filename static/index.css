@@ -6,6 +6,10 @@ body {
     margin: 0;
 }
 
+.title-bar-text {
+    pointer-events: none;
+}
+
 .window {
     position: absolute;
     margin: auto;
@@ -77,7 +81,7 @@ button img {
     grid-auto-flow: column;
 }
 
-.start-menu[aria-hidden="true"] {
+.window[aria-hidden="true"] {
     display: none;
 }
 
@@ -151,4 +155,9 @@ button img {
     font-size: 11px;
     line-height: 1.2;
     font-weight: 500;
+}
+
+.window#about-tech-window {
+    width: 600px;
+    height: 400px;
 }

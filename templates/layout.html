@@ -10,6 +10,10 @@
     </head>
     <body>
         {{ template "main" . }}
+        {{ template "about-tech" . }}
+        {{ template "projects" . }}
+        {{ template "contact-me" . }}
+
         <div class="repos">
             {{ range $index, $repo := .Repos }} {{ if not $repo.Fork }}
             <a
@@ -52,25 +56,19 @@
                 <span>About Me</span>
             </button>
             <div class="divider"></div>
-            <button>
+            <button aria-controls="about-tech-window">
                 <img src="/static/tech.png" alt="about tech" />
                 <span>about tech</span>
             </button>
-            <button>
+            <button aria-controls="projects-window">
                 <img src="/static/projects.png" alt="projects" />
                 <span>projects</span>
             </button>
-            <button>
+            <button aria-controls="contact-me-window">
                 <img src="/static/contact.png" alt="contact me" />
                 <span>contact me</span>
             </button>
-            <div
-                class="window start-menu"
-                id="about-me-window"
-                aria-hidden="true"
-            >
-                {{ template "about-me" . }}
-            </div>
+            {{ template "about-me" . }}
         </div>
     </body>
 </html>

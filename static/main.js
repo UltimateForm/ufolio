@@ -13,6 +13,15 @@ function dragElement(elmnt) {
 
   function dragMouseDown(e) {
     e = e || window.event;
+
+    if (e.target !== titleBar) {
+      // why? we only want to drag the window when the title bar is clicked, not any other element inside the window
+      // so we return early if the clicked element is not the title bar
+      // the other approach would to do something like `if (e.target.closest('.title-bar-controls')) return;`
+      // but i find it cleaner to check if the target is the title bar directly
+      return;
+    }
+
     e.preventDefault();
     // get the mouse cursor position at startup:
     pos3 = e.clientX;
@@ -63,10 +72,15 @@ function textToRgb(repoName) {
 }
 document.addEventListener("DOMContentLoaded", function () {
   const wins = document.querySelectorAll(".window:not(.start-menu)");
-  console.log(`drag.js found ${wins.length} windows`);
 
-  wins.forEach(function (elmnt) {
-    dragElement(elmnt);
+  wins.forEach(function (win) {
+    dragElement(win);
+    win.addEventListener("focus", function () {
+      win.parentElement.append(win);
+    });
+    win.addEventListener("mousedown", function () {
+      win.focus();
+    });
   });
 
   document.querySelectorAll("button[aria-controls]").forEach((btn) => {
@@ -77,6 +91,9 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log(`aria-expanded: ${isOpen}`);
       btn.setAttribute("aria-expanded", !isOpen);
       panel.setAttribute("aria-hidden", isOpen);
+      if (!isOpen) {
+        panel.focus();
+      }
     });
   });
 
