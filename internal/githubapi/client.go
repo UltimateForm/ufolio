@@ -18,7 +18,7 @@ type GhClient struct {
 }
 
 func New(bearerToken string) *GhClient {
-	logger := log.New(log.Default().Writer(), "[GhClient]", log.Default().Flags())
+	logger := log.New(log.Default().Writer(), "[GhClient] ", log.Default().Flags())
 	return &GhClient{
 		client:      http.DefaultClient,
 		bearerToken: bearerToken,

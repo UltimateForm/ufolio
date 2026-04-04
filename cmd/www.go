@@ -12,27 +12,14 @@ import (
 
 func addWwwRoutes(router *corehttp.Router) {
 
-	edgeSignature := os.Getenv("X_EDGE_SIGNATURE")
-	// why? i want that fly.dev domain gone, outta my sight, shoo
-	checkEdge := func(w http.ResponseWriter, r *http.Request) bool {
-		if edgeSignature == "" || r.Header.Get("x-edge-signature") == edgeSignature {
-			return true
-		}
-		http.Error(w, "Forbidden", http.StatusForbidden)
-		return false
-	}
-
 	ghToken := os.Getenv("GITHUB_TOKEN")
 	if ghToken == "" {
 		log.Fatalf("GITHUB_TOKEN environment variable not set")
 	}
 	ghClient := githubapi.New(ghToken)
+	templ := template.Must(template.ParseGlob("www/templates/*.html"))
 
-	router.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		if !checkEdge(w, r) {
-			return
-		}
-		templ := template.Must(template.ParseGlob("www/templates/*.html"))
+	router.HandleRoute(corehttp.NewRoute("GET", "/", func(w http.ResponseWriter, r *http.Request) {
 		repos, err := ghClient.GetRepos(r.Context())
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -42,18 +29,15 @@ func addWwwRoutes(router *corehttp.Router) {
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
-	})
+	}))
 
-	router.Get("/clicked", func(w http.ResponseWriter, r *http.Request) {
-		if !checkEdge(w, r) {
-			return
-		}
+	router.HandleRoute(corehttp.NewRoute("GET", "/clicked", func(w http.ResponseWriter, r *http.Request) {
 		templ := template.Must(template.ParseGlob("www/templates/*.html"))
 
 		err := templ.ExecuteTemplate(w, "clickResp", nil)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
-	})
+	}))
 
 }

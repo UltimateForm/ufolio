@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/UltimateForm/ufolio/internal/corehttp"
+	"github.com/UltimateForm/ufolio/internal/middlewares"
 )
 
 func RunAPI() {
@@ -17,18 +18,18 @@ func RunAPI() {
 	}
 	log.Printf("Working directory: %s\n", wd)
 
-	mainMux := http.NewServeMux()
+	// i want to be able to change this without caring about cmd handlers
+	// so i am abstracting it into a separate internal package
+	router := corehttp.NewRouter("/").With(middlewares.EnforceEdge).With(middlewares.Logging)
 
-	addStaticRoutes(mainMux)
+	addStaticRoutes(router)
 
-	router := corehttp.NewRouter("/", mainMux)
-
-	addHotRoutes(corehttp.NewRouter("/hot/", router.Mux))
+	addHotRoutes(router)
 
 	addWwwRoutes(router)
 
 	log.Println("Listening on :8080")
-	if err := http.ListenAndServe(":8080", mainMux); err != nil {
+	if err := http.ListenAndServe(":8080", router); err != nil {
 		log.Fatalf("Server error: %v", err)
 	}
 }
