@@ -6,7 +6,7 @@ ifneq (,$(wildcard .env))
 endif
 
 export GITHUB_TOKEN
-export X_EDGE_SIGNATURE
+# export X_EDGE_SIGNATURE
 
 build: clean
 	go build -o $(out_dir)/$(package)
@@ -17,4 +17,4 @@ clean:
 docker-build:
 	docker build -t $(package) .
 docker-run: docker-build
-	docker run -it --rm -p 8080:8080 $(package)
+	docker run --env-file .env -it --rm -p 8080:8080 $(package)
