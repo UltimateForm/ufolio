@@ -12,6 +12,12 @@ type responseWriter struct {
 	written    bool
 }
 
+func (rw *responseWriter) Flush() {
+	// needed for http.Flusher support for hot reload stuff
+	if flusher, ok := rw.ResponseWriter.(http.Flusher); ok {
+		flusher.Flush()
+	}
+}
 func (rw *responseWriter) WriteHeader(code int) {
 	if !rw.written {
 		rw.statusCode = code
@@ -39,12 +45,12 @@ func Logging(next http.HandlerFunc) http.HandlerFunc {
 	// consider making next a http.Handler so we call like next.ServeHTTP(w, r)
 	return func(w http.ResponseWriter, r *http.Request) {
 		middlewareLogger.Printf("REQ %s %s %s\n", r.Method, r.URL.Path, r.RemoteAddr)
-
 		// stategy from https://upgear.io/blog/golang-tip-wrapping-http-response-writer-for-middleware/
 		wrapped := &responseWriter{ResponseWriter: w}
 		start := time.Now()
 		next(wrapped, r)
 		duration := time.Since(start)
+
 		middlewareLogger.Printf("RES %s %s %s %v %dms\n", r.Method, r.URL.Path, r.RemoteAddr, wrapped.statusCode, duration.Milliseconds())
 	}
 }

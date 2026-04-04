@@ -3,8 +3,8 @@ package cmd
 import (
 	"log"
 	"net/http"
-	"os"
 
+	"github.com/UltimateForm/ufolio/internal/config"
 	"github.com/UltimateForm/ufolio/internal/corehttp"
 	"github.com/UltimateForm/ufolio/internal/middlewares"
 )
@@ -12,11 +12,9 @@ import (
 func RunAPI() {
 	log.Println("Starting API server...")
 
-	wd, err := os.Getwd()
-	if err != nil {
-		log.Fatalf("Failed to get working directory: %v", err)
+	if config.Api.Dev {
+		log.Println("RUNNING IN DEV MODE")
 	}
-	log.Printf("Working directory: %s\n", wd)
 
 	// i want to be able to change this without caring about cmd handlers
 	// so i am abstracting it into a separate internal package
@@ -24,7 +22,9 @@ func RunAPI() {
 
 	addStaticRoutes(router)
 
-	addHotRoutes(router)
+	if config.Api.Dev {
+		addHotRoutes(router)
+	}
 
 	addWwwRoutes(router)
 

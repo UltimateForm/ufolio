@@ -7,6 +7,7 @@ endif
 
 export GITHUB_TOKEN
 # export X_EDGE_SIGNATURE
+export DEV=1
 
 build: clean
 	go build -o $(out_dir)/$(package)
