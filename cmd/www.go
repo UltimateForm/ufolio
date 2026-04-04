@@ -31,9 +31,7 @@ func addWwwRoutes(router *corehttp.Router) {
 		}
 	}))
 
-	router.HandleRoute(corehttp.NewRoute("GET", "/clicked", func(w http.ResponseWriter, r *http.Request) {
-		templ := template.Must(template.ParseGlob("www/templates/*.html"))
-
+	router.HandleRoute(corehttp.NewRoute("POST", "/clicked", func(w http.ResponseWriter, r *http.Request) {
 		err := templ.ExecuteTemplate(w, "clickResp", nil)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
