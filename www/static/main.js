@@ -88,7 +88,6 @@ document.addEventListener("DOMContentLoaded", function () {
       const panelId = btn.getAttribute("aria-controls");
       const panel = document.getElementById(panelId);
       const isOpen = btn.getAttribute("aria-expanded") === "true";
-      console.log(`aria-expanded: ${isOpen}`);
       btn.setAttribute("aria-expanded", !isOpen);
       panel.setAttribute("aria-hidden", isOpen);
       if (!isOpen) {
