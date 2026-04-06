@@ -35,6 +35,7 @@ function dragElement(elmnt) {
 
   function elementDrag(e) {
     e = e || window.event;
+    if (elmnt.getAttribute("aria-expanded") === "true") return;
     e.preventDefault();
     // calculate the new cursor position:
     pos1 = pos3 - e.clientX;
@@ -81,14 +82,42 @@ document.addEventListener("DOMContentLoaded", function () {
     win.addEventListener("mousedown", function () {
       win.focus();
     });
+
+    win
+      .querySelectorAll('[aria-label="Close"], [aria-label="Minimize"]')
+      .forEach((el) => {
+        const controller = document.querySelector(
+          `[aria-controls="${win.id}"]`,
+        );
+        el.addEventListener("click", function () {
+          win.blur();
+          win.setAttribute("aria-hidden", true);
+          if (controller) {
+            controller.setAttribute("aria-pressed", false);
+          }
+        });
+      });
+
+    const maximizeBtn = win.querySelector('[aria-label="Maximize"]');
+    if (!maximizeBtn) return;
+    function maximize() {
+      const isExpanded = win.getAttribute("aria-expanded") === "true";
+      win.setAttribute("aria-expanded", !isExpanded);
+    }
+    win.querySelector(".title-bar")?.addEventListener("dblclick", function () {
+      maximize();
+    });
+    maximizeBtn.addEventListener("click", function () {
+      maximize();
+    });
   });
 
   document.querySelectorAll("button[aria-controls]").forEach((btn) => {
     btn.addEventListener("click", function () {
       const panelId = btn.getAttribute("aria-controls");
       const panel = document.getElementById(panelId);
-      const isOpen = btn.getAttribute("aria-expanded") === "true";
-      btn.setAttribute("aria-expanded", !isOpen);
+      const isOpen = btn.ariaPressed === "true";
+      btn.setAttribute("aria-pressed", !isOpen);
       panel.setAttribute("aria-hidden", isOpen);
       if (!isOpen) {
         panel.focus();

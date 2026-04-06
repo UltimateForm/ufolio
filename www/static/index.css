@@ -4,6 +4,8 @@ body {
     height: 100%;
     overflow: hidden;
     margin: 0;
+    position: relative;
+    --start-bar-height: 27px;
 }
 
 .title-bar-text {
@@ -13,14 +15,41 @@ body {
 .window {
     position: absolute;
     margin: auto;
-}
 
-.window[aria-hidden="true"] {
-    display: none;
-}
+    &:not(.start-menu) {
+        /*display: block;
+        overflow: auto;
+        resize: both;*/
+        /* this doesnt work, figure out why later*/
 
-.window:not(.start-menu) .title-bar {
-    cursor: move;
+        &[aria-expanded="true"] {
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: var(--start-bar-height, 27px) !important;
+            width: unset !important;
+            height: unset !important;
+            /*why the !important ? we are violating the cascade since we want to maintain window starter placeement on the style*/
+
+            /*.title-bar {
+                pointer-events: none;
+                * {
+                    pointer-events: auto;
+                }
+            }*/
+        }
+        .title-bar {
+            cursor: move;
+        }
+    }
+
+    &[aria-hidden="true"] {
+        display: none;
+    }
+    &#about-tech-window {
+        width: 600px;
+        height: 400px;
+    }
 }
 
 .start-bar {
@@ -28,42 +57,39 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 27px;
+    height: var(--start-bar-height, 27px);
     outline: 1px solid rgb(223, 223, 223);
     border-top: 1px solid rgb(255, 255, 255);
     background: rgb(192, 192, 192);
     color: rgb(0, 0, 0);
     display: flex;
-}
+    button {
+        height: 100%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 2px;
+        &[aria-pressed="true"] {
+            box-shadow:
+                inset -1px -1px #ffffff,
+                inset 1px 1px #0a0a0a,
+                inset -2px -2px #dfdfdf,
+                inset 2px 2px #808080;
+        }
+        &[aria-controls="about-me-window"] span {
+            font-weight: bold;
+        }
 
-.start-bar button {
-    height: 100%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 2px;
-}
-
-.start-bar button[aria-expanded="true"] {
-    box-shadow:
-        inset -1px -1px #ffffff,
-        inset 1px 1px #0a0a0a,
-        inset -2px -2px #dfdfdf,
-        inset 2px 2px #808080;
+        span {
+            margin-left: 5px;
+            font-size: 14px;
+        }
+    }
 }
 
 button img {
     height: 14px;
-}
-
-.start-bar button span {
-    margin-left: 5px;
-    font-size: 14px;
-}
-
-.start-bar button[aria-controls="about-me-window"] span {
-    font-weight: bold;
 }
 
 .divider {
@@ -79,28 +105,24 @@ button img {
     color: rgb(0, 0, 0);
     display: grid;
     grid-auto-flow: column;
-}
 
-.window[aria-hidden="true"] {
-    display: none;
-}
+    .me {
+        text-overflow: wrap;
+        overflow-wrap: break-word;
+        padding: 16px 32px 16px 32px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        box-sizing: border-box;
+        font-size: 1.2rem;
 
-.start-menu .me {
-    text-overflow: wrap;
-    overflow-wrap: break-word;
-    padding: 16px 32px 16px 32px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    box-sizing: border-box;
-    font-size: 1.2rem;
-}
-
-.start-menu .me h1 {
-    margin: 0;
-    font-size: 24px;
-    font-weight: bold;
+        h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+    }
 }
 
 .start-menu-bar {
@@ -110,12 +132,12 @@ button img {
     background: linear-gradient(0deg, navy, #1084d0);
     justify-content: space-between;
     padding: 3px 2px 3px 3px;
-}
 
-.start-menu-bar a {
-    color: rgb(255, 255, 255);
-    font-weight: 700;
-    text-decoration: none;
+    a {
+        color: rgb(255, 255, 255);
+        font-weight: 700;
+        text-decoration: none;
+    }
 }
 
 .repos {
@@ -129,35 +151,31 @@ button img {
     box-sizing: border-box;
     column-gap: 0;
     row-gap: 1rem;
-}
 
-.repo {
-    display: grid;
-    grid-auto-flow: row;
-    gap: 8px;
-    align-items: start;
-    place-items: center;
-    text-align: center;
-    align-content: start;
-    text-decoration: none;
-}
-.repo img {
-    width: 32px;
-}
+    .repo {
+        display: grid;
+        grid-auto-flow: row;
+        gap: 8px;
+        align-items: start;
+        place-items: center;
+        text-align: center;
+        align-content: start;
+        text-decoration: none;
 
-.repo span {
-    color: white;
-    font-size: 11px;
-    display: block;
-    width: 70px;
-    word-break: break-word;
-    overflow-wrap: break-word;
-    font-size: 11px;
-    line-height: 1.2;
-    font-weight: 500;
-}
+        img {
+            width: 32px;
+        }
 
-.window#about-tech-window {
-    width: 600px;
-    height: 400px;
+        span {
+            color: white;
+            font-size: 11px;
+            display: block;
+            width: 70px;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            font-size: 11px;
+            line-height: 1.2;
+            font-weight: 500;
+        }
+    }
 }
