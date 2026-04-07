@@ -83,7 +83,6 @@ document.addEventListener("DOMContentLoaded", function () {
       view.querySelectorAll("button").forEach((btn) => {
         btn.addEventListener("click", function (e) {
           e.preventDefault();
-          console.log("click", btn.dataset.key);
           const currentSelected = view.ariaSelected;
           const currentBtn = view.querySelector(
             `[data-key="${currentSelected}"]`,
