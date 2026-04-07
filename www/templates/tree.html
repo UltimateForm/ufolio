@@ -1,0 +1,10 @@
+{{ define "tree" }}
+<ul>
+    {{ range $key, $value := . }}
+    <li>
+        <button aria-checked="false" data-key="{{ $key }}">{{ $key }}</button>
+        {{ template "tree" $value }}
+    </li>
+    {{ end }}
+</ul>
+{{ end }}

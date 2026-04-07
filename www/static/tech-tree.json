@@ -1,0 +1,61 @@
+{
+  "languages": {
+    "nodejs": {},
+    "typescript": {},
+    "c#": {},
+    "python": {},
+    "go": {}
+  },
+  "frontend": {
+    ".net": {},
+    "react": {
+      "react-admin": {},
+      "nextjs": {},
+      "gatsby": {}
+    },
+    "astro": {},
+    "vue": {
+      "nuxtjs": {}
+    },
+    "angular": {},
+    "svelte": {}
+  },
+  "backend": {
+    ".net": {},
+    "express": {},
+    "django": {},
+    "chi": {},
+    "nestjs": {}
+  },
+  "cicd": {
+    "github-actions": {},
+    "gitlab-ci": {},
+    "jenkins": {},
+    "terraform": {},
+    "teamcity": {}
+  },
+  "cloud": {
+    "aws": {
+      "lambda": {},
+      "ec2": {},
+      "s3": {}
+    },
+    "azure": {
+      "functions": {},
+      "azure-data-explorer": {}
+    },
+    "gcp": {
+      "kubernetes": {},
+      "bigquery": {}
+    },
+    "cloudflare": {
+      "workers": {
+        "workflows": {}
+      },
+      "kv": {},
+      "pages": {},
+      "d1": {},
+      "vectorize": {}
+    }
+  }
+}

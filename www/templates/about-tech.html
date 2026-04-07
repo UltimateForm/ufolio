@@ -11,9 +11,14 @@
         {{ template "window-controls" }}
     </div>
     <div class="window-body">
-        <p>this is a personal portfolio in development</p>
-        <p>maybe come back later :D</p>
-        <button hx-post="/clicked" hx-swap="outerHTML">Click Me</button>
+        <ul class="tree-view" aria-selected="technical experience">
+            <li>
+                <button aria-checked="true" data-key="technical experience">
+                    technical experience
+                </button>
+            </li>
+            {{ template "tree" .Tech }}
+        </ul>
     </div>
 </div>
 {{ end }}

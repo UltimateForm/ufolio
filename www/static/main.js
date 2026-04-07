@@ -55,6 +55,7 @@ function dragElement(elmnt) {
   }
 }
 
+// magic
 function textToRgb(repoName) {
   let hash = 0;
   for (let i = 0; i < repoName.length; i++) {
@@ -76,11 +77,32 @@ document.addEventListener("DOMContentLoaded", function () {
 
   wins.forEach(function (win) {
     dragElement(win);
+
+    win.querySelectorAll(".tree-view").forEach((view) => {
+      // const keyMap = new Map();
+      view.querySelectorAll("button").forEach((btn) => {
+        btn.addEventListener("click", function (e) {
+          e.preventDefault();
+          console.log("click", btn.dataset.key);
+          const currentSelected = view.ariaSelected;
+          const currentBtn = view.querySelector(
+            `[data-key="${currentSelected}"]`,
+          );
+
+          currentBtn?.setAttribute("aria-checked", false);
+          btn.setAttribute("aria-checked", true);
+          view.setAttribute("aria-selected", btn.dataset.key);
+        });
+      });
+    });
+
     win.addEventListener("focus", function () {
       win.parentElement.append(win);
     });
     win.addEventListener("mousedown", function () {
-      win.focus();
+      if (win !== win.parentElement.lastChild) {
+        win.focus();
+      }
     });
 
     win
