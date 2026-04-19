@@ -7,7 +7,7 @@
     "go": {}
   },
   "frontend": {
-    ".net": {},
+    "dotnet": {},
     "react": {
       "react-admin": {},
       "nextjs": {},
@@ -21,7 +21,7 @@
     "svelte": {}
   },
   "backend": {
-    ".net": {},
+    "dotnet": {},
     "express": {},
     "django": {},
     "chi": {},

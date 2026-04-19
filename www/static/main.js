@@ -79,20 +79,30 @@ document.addEventListener("DOMContentLoaded", function () {
     dragElement(win);
 
     win.querySelectorAll(".tree-view").forEach((view) => {
-      // const keyMap = new Map();
-      view.querySelectorAll("button").forEach((btn) => {
-        btn.addEventListener("click", function (e) {
-          e.preventDefault();
-          const currentSelected = view.ariaSelected;
-          const currentBtn = view.querySelector(
-            `[data-key="${currentSelected}"]`,
-          );
+      function toggleDisplay(toDisable, toEnable) {
+        disableTarget = win.querySelector(`#${toDisable}`);
+        enableTarget = win.querySelector(`#${toEnable}`);
+        disableTarget?.setAttribute("aria-hidden", "true");
+        enableTarget?.setAttribute("aria-hidden", "false");
+      }
 
-          currentBtn?.setAttribute("aria-checked", false);
-          btn.setAttribute("aria-checked", true);
-          view.setAttribute("aria-selected", btn.dataset.key);
-        });
-      });
+      // // const keyMap = new Map();
+      // view.querySelectorAll("button").forEach((btn) => {
+      //   btn.addEventListener("click", function (e) {
+      //     e.preventDefault();
+      //     const currentSelected = view.ariaSelected;
+      //     const currentBtn = view.querySelector(
+      //       `[aria-controls="${currentSelected}"]`,
+      //     );
+      //     // win.querySelector(`#${currentSelected}`);
+      //     currentBtn?.setAttribute("aria-checked", false);
+      //     btn.setAttribute("aria-checked", true);
+      //     // const toSelect = btn.getAttribute("aria-controls");
+      //     view.setAttribute("aria-selected", btn.getAttribute("aria-controls"));
+
+      //     // toggleDisplay(currentSelected, toSelect);
+      //   });
+      // });
     });
 
     win.addEventListener("focus", function () {
@@ -137,11 +147,37 @@ document.addEventListener("DOMContentLoaded", function () {
     btn.addEventListener("click", function () {
       const panelId = btn.getAttribute("aria-controls");
       const panel = document.getElementById(panelId);
-      const isOpen = btn.ariaPressed === "true";
-      btn.setAttribute("aria-pressed", !isOpen);
-      panel.setAttribute("aria-hidden", isOpen);
-      if (!isOpen) {
-        panel.focus();
+      const isRadio = btn.getAttribute("role") === "radio";
+      const btnStateKey = isRadio ? "aria-checked" : "aria-pressed";
+      const isOpen = btn.getAttribute(btnStateKey) === "true";
+      btn.setAttribute(btnStateKey, !isOpen);
+
+      if (panel) {
+        panel.setAttribute("aria-hidden", isOpen);
+        if (!isOpen && panel.classList.contains("window")) {
+          panel.focus();
+        }
+      }
+
+      if (isRadio) {
+        const closestRadioGroup = btn.closest("[role=radiogroup]");
+        if (!closestRadioGroup) {
+          console.error("radio button is not inside a radio group", btn);
+          return;
+        }
+        closestRadioGroup
+          .querySelectorAll(
+            `button[role=radio][aria-checked=true]:not([aria-controls=${panelId}])`,
+          )
+          .forEach((radioBtn) => {
+            radioBtn.setAttribute(btnStateKey, false);
+            const disableTarget = radioBtn.getAttribute("aria-controls");
+            if (disableTarget) {
+              document
+                .getElementById(disableTarget)
+                ?.setAttribute("aria-hidden", true);
+            }
+          });
       }
     });
   });

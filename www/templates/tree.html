@@ -2,7 +2,9 @@
 <ul>
     {{ range $key, $value := . }}
     <li>
-        <button aria-checked="false" data-key="{{ $key }}">{{ $key }}</button>
+        <button role="radio" aria-checked="false" aria-controls="{{ $key }}">
+            {{ $key }}
+        </button>
         {{ template "tree" $value }}
     </li>
     {{ end }}

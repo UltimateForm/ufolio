@@ -11,7 +11,12 @@
         {{ template "window-controls" }}
     </div>
     <div class="window-body">
-        <ul class="tree-view" aria-selected="technical experience">
+        <ul
+            class="tree-view"
+            aria-selected="technical experience"
+            role="radiogroup"
+            aria-label="list of skills"
+        >
             <li>
                 <button aria-checked="true" data-key="technical experience">
                     technical experience
@@ -19,6 +24,7 @@
             </li>
             {{ template "tree" .Tech }}
         </ul>
+        {{ .TechSkillsHtml }}
     </div>
 </div>
 {{ end }}

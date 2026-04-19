@@ -72,6 +72,22 @@ body {
     &#about-tech-window {
         width: 600px;
         height: 400px;
+        .window-body {
+            display: grid;
+            grid-auto-flow: column;
+            font-size: 1rem;
+            > div {
+                display: none;
+                padding-right: 0.5rem;
+                height: 100%;
+                overflow: scroll;
+                box-sizing: border-box;
+                margin: 0 1rem 0 1rem;
+                &[aria-hidden="false"] {
+                    display: block;
+                }
+            }
+        }
     }
 }
 
