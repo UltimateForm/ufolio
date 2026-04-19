@@ -70,8 +70,8 @@ body {
         display: none;
     }
     &#about-tech-window {
-        width: 600px;
-        height: 400px;
+        width: 768px;
+        height: 600px;
         .window-body {
             display: grid;
             grid-auto-flow: column;
@@ -85,6 +85,20 @@ body {
                 margin: 0 1rem 0 1rem;
                 &[aria-hidden="false"] {
                     display: block;
+                }
+                max-width: 768px;
+            }
+            figure {
+                display: flex;
+                flex-direction: column;
+                max-width: fit-content;
+                img {
+                    width: 100%;
+                    max-width: fit-content;
+                }
+                figcaption {
+                    text-align: center;
+                    font-size: 0.85rem;
                 }
             }
         }

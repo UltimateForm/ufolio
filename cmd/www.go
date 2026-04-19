@@ -34,12 +34,12 @@ func loadTemplateFuncs() template.FuncMap {
 }
 
 func loadMainTemplates() *template.Template {
-	rootTemplateFileNames, _ := filepath.Glob("www/templates/*.html")
+	rootTemplateFileNames, _ := filepath.Glob("www/templates/*.gohtml")
 	return template.Must(template.New("main").Funcs(loadTemplateFuncs()).ParseFiles(rootTemplateFileNames...))
 }
 
 func loadSkillsTemplates() *template.Template {
-	skillsTemplateFileNames, _ := filepath.Glob("www/templates/skills/*.html")
+	skillsTemplateFileNames, _ := filepath.Glob("www/templates/skills/*.gohtml")
 	return template.Must(template.New("skills").Funcs(loadTemplateFuncs()).ParseFiles(skillsTemplateFileNames...))
 }
 

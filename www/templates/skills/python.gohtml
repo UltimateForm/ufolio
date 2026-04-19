@@ -1,0 +1,61 @@
+{{ define "python" }}
+<div id="python">
+    <h3>Python</h3>
+    <p>
+        I like python a lot, it has a special place in my heart, even though
+        professionally I haven't had much opportunity to use it.
+    </p>
+    <p>
+        The first time I came across python, it was at the start of my career
+        when I was developing for this quirky aquatic drone project (I loved
+        this project) and the internal logic of the beast was this messy
+        collection of python scripts, they did a range of things from measuring
+        battery information to controlling the motors, it was a lovely mess
+        really...
+    </p>
+    <figure>
+        <img src="static/img/drone.jpg" alt="aquatic drone" />
+        <figcaption>
+            imagine something like this but without the wings
+        </figcaption>
+    </figure>
+
+    <p>
+        For context this was aquatic drone was pretty much a raspberrypi board
+        with some extra "stuff".
+    </p>
+    <figure>
+        <img src="static/img/raspberrypi.jpg" alt="raspberry pi board" />
+        <figcaption>
+            we had a bunch of connections to it, wifi, sound, etc...
+        </figcaption>
+    </figure>
+    <p>
+        The control application itself was this unity3d app (don't ask, we don't
+        have time) codded in c# (at the time Mono, not .NET). So you can
+        understand how python felt like a new world to me at the time, going
+        from this static typed boilerplate heavy language like c# to this
+        dynamic typed language like python. I was already starting to get
+        exhausted from C# at the time so it felt refreshing to be able to use
+        python.
+    </p>
+
+    <p>Where I've worked extensively with Python is my personal hobbies, he are some examples
+        <ul>
+            <li>{{ link "https://github.com/UltimateForm/Trolls" "Trolls" }} - a - unfinished - terminal based game, my first hobby python project</li>
+            <li>{{ link "https://github.com/UltimateForm/redditPopularTermsDataAnalysis" "redditPopularTermsDataAnalysis" }} - a jupyter notebook because i did have a data analysis phase on my carreer, hopefully will get back to it one day, this project got derailed a bit because the subreddit went through some sort of revolution while i was working on this...</li>
+            <li>{{ link "https://github.com/UltimateForm/pdj-joiner" "pdj-joiner" }} - a personal tool i created to help me join pdfs because i didn't trust those websites out there</li>
+            <li>{{ link "https://github.com/UltimateForm/spidermonke" "spidermonke" }} - a web crawler that i used to collect dead urls on websites and output them to a neo4j graph database</li>
+            <li>{{ link "https://github.com/UltimateForm/lovelycritters" "lovelycritters" }} - a language native rest api i created to help me prepare a presentation i had about Datadog. If you look at this repo you will notice I'm not using anything really to help with rest api part, ai django or fastapi, this was intentional, I wanted to create everything myself, was very fun</li>
+            <li>{{ link "https://github.com/UltimateForm?tab=repositories&q=rcon-client&type=&language=&sort=" "rcon-clients" }} - a lot of rcon client apps</li>
+        </ul>
+    </p>
+
+    <p>A further one of the RCON stuff, I have worked a lot with {{ link "https://developer.valvesoftware.com/wiki/Source_RCON_Protocol" "RCON" }} recently, in fact if you scroll down the valve docs you will see 2 golang projects of mine</p>
+    <figure>
+        <img src="static/img/valverconpage.png" alt="screenshot of valve rcon page" />
+        <figcaption>I have bot a RCON low level library and a CLI, we'll get to it in golang section as this here is about python</figcaption>
+    </figure>
+    <p>I started with python, got a base understanding of TCP and then made the crossing to golang. I don't think I could have learned how RCON works in any other language</p>
+</div>
+{{ end }}

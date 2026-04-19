@@ -1,0 +1,59 @@
+{{ define "typescript" }}
+<div id="typescript">
+    <h3>typescript - the "language"</h3>
+    <p>I have a love-hate relationship with typescript...</p>
+    <p>
+        In my first comfrontation with it was skeptical, it was on this
+        backoffice react app which I had started with plain js, I'll get more to
+        it on the react section.
+    </p>
+    <p>
+        Our tech lead one day started talking about typescript I was like "what?
+        why? are you just trying to make it look like C#? You know this is a
+        different language right?", yes young me a professional mountain climber
+        and I had just conquered that Mount Stupid peak.
+    </p>
+    <figure>
+        <img src="static/img/mountstupid.jpg" alt="Mount Stupid" />
+    </figure>
+    <p>
+        But I wasn't that dumb, eventually I got it, because when I started
+        migrating the code to typescript I came across a bunch of errors which
+        initially - I'll be honest here - I was very complacent about, I was
+        thinking it was just the type cheker being annoying... And well, it was
+        that, but it had good reasons to be annoying. I don't ever want to go
+        back to the way how we used to do react PropTypes, if there's one thing
+        I hate it is when we reivent [what should be] language or runtime
+        features in library scopes.
+    </p>
+    <figure>
+        <img src="static/img/oldproptypes.png" alt="Old PropTypes in react" />
+        <figcaption>I wonder if ZOD took inspiration from this...</figcaption>
+    </figure>
+    <p>
+        I feel very confident with typescript these days, but my opinion of it,
+        or rather of its use, has suffered. I feel that often teams naively
+        adopt typescript without understanding the responsibilities it comes
+        with. It is not a silver bullet, you gotta buy-in to the type system to
+        get the benefits it provides, otherwise it's just a cancerous lump of
+        boilerplate in your codebase.
+    </p>
+    <p>
+        Inversely, I feel that a lot of teams seem to over-buy into typescript
+        and forget that the reason why we are using typescript is to solve a
+        type safety problem, our users don't really care about how smart our
+        interfaces and type unions are... I think we need to ask ourselves more
+        often, is typescript serving us or are we serving typescript? I will
+        leave you with this piece of comedy:
+    </p>
+    <figure>
+        <img src="static/img/holytypescript.jpeg" alt="Holy typescript" />
+        <figcaption>
+            this is what i mean about forgetting why we are using typescript
+            <br />{{ link
+            "https://www.reddit.com/r/programminghorror/comments/1m38j2w/context_in_comments/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button"
+            "source: reddit" }}
+        </figcaption>
+    </figure>
+</div>
+{{ end }}
