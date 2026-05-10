@@ -1,16 +1,16 @@
 {{ define "go" }}
 <div id="go">
-    <h3>go</h3>
+    <h3>Go</h3>
     <p>
-        First time I heard about Golang was when I was working on some data
-        analytics stuff for an hobby project and I remember seeing a
-        recommendation somewhere to use golang instead of Python.
+        First time I heard about Go was when I was working on some data
+        analytics stuff for a hobby project and I remember seeing a
+        recommendation somewhere to use Go instead of Python.
     </p>
     <p>
         I don't remember the details of this recommendation. But this is where I
-        first heard about it, I was told it was similar to Python but never
-        really touched it at that time, probably because of Google
-        association...
+        first heard about it — I was told it was similar to Python but never
+        really touched it at that time, probably because of Google's
+        association with product graveyards...
     </p>
     <figure>
         <img
@@ -18,14 +18,88 @@
             alt="Graveyard of dead google products"
         />
         <figcaption>
-            random image i promise, nothing to do with google
+            Random image I promise, nothing to do with Google.
         </figcaption>
     </figure>
     <p>
         Then in 2024 I started working at this company and they were pretty
-        heavy on golang for some backend services and all of them ran on
-        kubernetes clusters. This was great for me as I could use this to expand
-        both my golang proficiency and kubernetes skills.
+        heavy on Go for some backend services and all of them ran on
+        Kubernetes clusters. This was great for me as I could use this to expand
+        both my Go proficiency and Kubernetes skills.
+    </p>
+    <p>
+        The work I did at this company was the usual stuff you find: Go
+        backend services, containerized, running on Kubernetes clusters. Kafka
+        consumers, Sarama, etc. I got comfortable with it all over time. What I'm
+        more interested in writing here though is my personal experience
+        with Go. To start, I dove into the Go website and found their
+        Effective Go page, which I promptly downloaded to my Kobo e-reader. I
+        had a blast reading it, and I'm not one to have a lot of fun reading
+        this type of literature.
+    </p>
+    <figure>
+        <img src="/static/img/effectivego.png" alt="Effective Go" />
+        <figcaption>Effective Go</figcaption>
+    </figure>
+    <p>
+        I made it a personal rule that I'd only start developing personal Go
+        projects after finishing reading this little book, but to be fair it
+        wasn't that much of a challenge — just 54 pages. I immediately fell in
+        love with the concurrency model and the interface-based design. My first
+        personal project was {{ link "https://github.com/UltimateForm/urg" "this CLI tool" }} I use for generating random tokens.
+    </p>
+    <figure>
+        <img src="/static/img/urg.png" alt="urg" />
+        <figcaption>URG</figcaption>
+    </figure>
+    <p>
+        During this initial phase I was also interested in how backend services such
+        as a REST API would look like in Go, so I ported my {{ link "https://github.com/UltimateForm/dotpen-api" "dotpen-api" }} to Go
+        as {{ link "https://github.com/UltimateForm/gopen-api" "gopen-api" }}.
+        I was very happy with the result. Maybe I should have done something
+        custom (like I am in this ufolio) instead of adding go-chi as a dependency.
+    </p>
+    <p>
+        One thing I was thinking about while reading Effective Go was how good
+        its concurrency model would be for some stuff I had been doing in Python —
+        i.e., the RCON stuff — so I became fixated with writing my own RCON client
+        in Go. But I had to start small because I didn't really know that much
+        about TCP sockets. I knew the peripheral stuff necessary for
+        working with it in Python, but not enough to do it all myself. So I
+        swallowed my pride and took {{ link "https://www.boot.dev/courses/learn-http-protocol-golang" "that Primeagen course on boot.dev" }},
+        which actually taught me what I wanted to know: byte handling, packet building, IO buffering, encoding, etc. In
+        retrospect, none of this was really complicated — easy even — but in my
+        mind it was a blocker I had to clear.
+    </p>
+    <p>
+        My first personal real deliverable was my {{ link "https://github.com/UltimateForm/tcprcon" "tcprcon" }} low-level, zero-dependency RCON client library, which I now have linked on the {{ link "https://developer.valvesoftware.com/wiki/Source_RCON_Protocol" "Valve RCON official docs" }}.
+        After solidifying that, I started working
+        on {{ link "https://github.com/UltimateForm/tcprcon-cli" "tcprcon-cli" }} (a CLI app on top of tcprcon), which also got me more familiar with {{ link "https://www.man7.org/linux/man-pages/man3/termios.3.html" "termios" }} and the Go module system.
+        I wanted to write this
+        without dependencies as well, but caved in and installed
+        `golang.org/x/term` and `golang.org/x/sys`, which are Go
+        standard modules, just not part of the standard library itself.
+    </p>
+    <figure>
+        <img src="/static/img/tcprcon-cli.png" />
+        <figcaption>tcprcon-cli</figcaption>
+    </figure>
+    <figure>
+        <img src="/static/img/tcprcon-app.png" />
+        <figcaption>tcprcon-cli in full cli app mode</figcaption>
+    </figure>
+    <p>
+        I am very proud of this app, it's one of my personal projects that I use
+        the most frequently. After this, of note, I did use this on a bot I
+        wrote for a game server, that marries RCON events to some custom ELO
+        ranking system and presents them neatly, but that honestly is not as
+        interesting as the library and the cli themselves, as it is just a
+        wrapper around discord api and this library I developed. Please check them out:
+        <ul>
+            <li>{{ link "https://github.com/UltimateForm/tcprcon-cli" "tcprcon-cli" }}</li>
+            <li>{{ link "https://github.com/UltimateForm/tcprcon" "tcprcon" }}</li>
+            <li>{{ link "https://github.com/UltimateForm/mh-gobot" "mh-gobot — the bot I was talking about" }}</li>
+        </ul>
     </p>
 </div>
 {{ end }}
