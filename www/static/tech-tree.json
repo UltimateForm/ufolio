@@ -14,9 +14,7 @@
       "gatsby": {}
     },
     "astro": {},
-    "vue": {
-      "nuxtjs": {}
-    },
+    "vue": {},
     "angular": {},
     "svelte": {}
   },
@@ -35,27 +33,14 @@
     "teamcity": {}
   },
   "cloud": {
-    "aws": {
-      "lambda": {},
-      "ec2": {},
-      "s3": {}
-    },
-    "azure": {
-      "functions": {},
-      "azure-data-explorer": {}
-    },
-    "gcp": {
-      "kubernetes": {},
-      "bigquery": {}
-    },
-    "cloudflare": {
-      "workers": {
-        "workflows": {}
-      },
-      "kv": {},
-      "pages": {},
-      "d1": {},
-      "vectorize": {}
-    }
+    "aws": {},
+    "azure": {},
+    "cloudflare": {},
+    "gcp": {}
+  },
+  "containerization": {
+    "docker": {},
+    "compose": {},
+    "kubernetes": {}
   }
 }

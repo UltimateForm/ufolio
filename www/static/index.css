@@ -69,6 +69,58 @@ body {
     &[aria-hidden="true"] {
         display: none;
     }
+    &#contact-me-window {
+        width: 480px;
+        height: 600px;
+        .window-body {
+            width: auto;
+            position: relative;
+            .mail {
+                display: grid;
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto;
+                gap: 0.5rem;
+                width: 100%;
+                #subject,
+                #body {
+                    max-width: 100%;
+                    width: 100%;
+                    padding: 0.5rem;
+                    box-sizing: border-box;
+                }
+                textarea {
+                    resize: vertical;
+                    height: 300px;
+                }
+            }
+            #send {
+                position: absolute;
+                bottom: 0.5rem;
+                right: 0.5rem;
+                display: grid;
+                grid-template-columns: auto 1fr;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            #contact-me-ok {
+                width: 100%;
+                height: 100%;
+                display: grid;
+                text-align: center;
+                place-content: center;
+                place-items: center;
+                p {
+                    &:first-child {
+                        font-size: 1.4rem;
+                        font-weight: bold;
+                    }
+                    font-size: 1rem;
+                    max-width: 162px;
+                }
+            }
+        }
+    }
+
     &#about-tech-window {
         width: 768px;
         height: 600px;

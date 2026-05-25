@@ -156,6 +156,10 @@ document.addEventListener("DOMContentLoaded", function () {
         panel.setAttribute("aria-hidden", isOpen);
         if (!isOpen && panel.classList.contains("window")) {
           panel.focus();
+          // auto-maximize on mobile
+          if (window.innerWidth < 768) {
+            panel.setAttribute("aria-expanded", "true");
+          }
         }
       }
 

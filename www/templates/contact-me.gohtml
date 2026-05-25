@@ -11,8 +11,13 @@
         {{ template "window-controls" }}
     </div>
     <div class="window-body">
-        <p>this is a personal portfolio in development</p>
-        <p>maybe come back later :D</p>
+        <form id="contact-form" hx-post="/contact" hx-swap="outerHTML">
+            <div class="mail">
+                <input type="text" name="subject" id="subject" placeholder="subject" maxlength="164" />
+                <textarea name="body" id="body" placeholder="message"></textarea>
+            </div>
+            <button id="send" type="submit"><img src="/static/envelope.png" alt="envelope" />Send</button>
+        </form>
     </div>
 </div>
 {{ end }}

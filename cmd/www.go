@@ -72,6 +72,7 @@ func addWwwRoutes(router *corehttp.Router) {
 		log.Fatal(err)
 	}
 	techKeys := flatMapKeys(techData)
+
 	skillsHtml := getSkillsHtml(skillsTemplate, techKeys)
 
 	router.HandleRoute(corehttp.NewRoute("GET", "/", func(w http.ResponseWriter, r *http.Request) {
@@ -103,4 +104,5 @@ func addWwwRoutes(router *corehttp.Router) {
 		}
 	}))
 
+	router.HandleRoute(corehttp.NewRoute("POST", "/contact", createHandleContact(mainTemplates)))
 }
