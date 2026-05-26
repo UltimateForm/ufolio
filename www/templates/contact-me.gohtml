@@ -11,12 +11,20 @@
         {{ template "window-controls" }}
     </div>
     <div class="window-body">
-        <form id="contact-form" hx-post="/contact" hx-swap="outerHTML">
-            <div class="mail">
+        <form id="contact-form" autocomplete="off" hx-target="#mail-fields" hx-post="/contact"  hx-swap="outerHTML" hx-on="htmx:afterSwap: window.turnstile.remove();">
+            <div id="mail-fields">
                 <input type="text" name="subject" id="subject" placeholder="subject" maxlength="164" />
                 <textarea name="body" id="body" placeholder="message"></textarea>
+                <button id="send" type="submit"><img src="/static/envelope.png" alt="envelope" />Send</button>
+                <div
+                  class="cf-turnstile"
+                  data-sitekey={{ .TurnstileSiteKey }}
+                  data-theme="light"
+                  data-size="normal"
+                  data-callback="onSuccess"
+                ></div>
             </div>
-            <button id="send" type="submit"><img src="/static/envelope.png" alt="envelope" />Send</button>
+
         </form>
     </div>
 </div>

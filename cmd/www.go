@@ -73,21 +73,28 @@ func addWwwRoutes(router *corehttp.Router) {
 	}
 	techKeys := flatMapKeys(techData)
 
-	skillsHtml := getSkillsHtml(skillsTemplate, techKeys)
+	skillsHtml := template.HTML(getSkillsHtml(skillsTemplate, techKeys))
 
 	router.HandleRoute(corehttp.NewRoute("GET", "/", func(w http.ResponseWriter, r *http.Request) {
 		if config.Api.Dev {
 			// reload templates on every request in dev mode
 			mainTemplates = loadMainTemplates()
 			skillsTemplate = loadSkillsTemplates()
-			skillsHtml = getSkillsHtml(skillsTemplate, techKeys)
+			skillsHtml = template.HTML(getSkillsHtml(skillsTemplate, techKeys))
 		}
 		repos, err := ghClient.GetRepos(r.Context())
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
-		err = mainTemplates.ExecuteTemplate(w, "layout", map[string]any{"Repos": repos, "Dev": config.Api.Dev, "Tech": techData, "TechSkillsHtml": template.HTML(skillsHtml)})
+		renderParams := map[string]any{
+			"Repos":            repos,
+			"Dev":              config.Api.Dev,
+			"Tech":             techData,
+			"TechSkillsHtml":   skillsHtml,
+			"TurnstileSiteKey": config.Api.TurnstileSiteKey,
+		}
+		err = mainTemplates.ExecuteTemplate(w, "layout", renderParams)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}

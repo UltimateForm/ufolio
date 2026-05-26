@@ -106,10 +106,13 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     win.addEventListener("focus", function () {
-      win.parentElement.append(win);
+      document.querySelectorAll(".window[aria-current]").forEach(w => {
+        w.removeAttribute("aria-current");
+      });
+      win.setAttribute("aria-current", "page");
     });
     win.addEventListener("mousedown", function () {
-      if (win !== win.parentElement.lastChild) {
+      if (!win.hasAttribute("aria-current")) {
         win.focus();
       }
     });
