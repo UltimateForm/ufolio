@@ -76,7 +76,7 @@ func ValidateToken(ctx context.Context, token string) error {
 	if err != nil {
 		return err
 	}
-	res, err := VerifyToken(ctx, token, idempotencyKey, config.Api.TurnstileSecretKey)
+	res, err := VerifyToken(ctx, token, idempotencyKey, config.Secret.TurnstileSecretKey)
 	if err != nil {
 		return err
 	}

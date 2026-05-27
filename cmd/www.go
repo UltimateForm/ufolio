@@ -57,7 +57,7 @@ func getSkillsHtml(templ *template.Template, techKeys []string) string {
 
 func addWwwRoutes(router *corehttp.Router) {
 
-	ghClient := githubapi.New(config.Api.GithubToken)
+	ghClient := githubapi.New(config.Secret.GithubToken)
 
 	mainTemplates := loadMainTemplates()
 	skillsTemplate := loadSkillsTemplates()
