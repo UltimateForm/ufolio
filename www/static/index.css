@@ -6,6 +6,11 @@ body {
     margin: 0;
     position: relative;
     --start-bar-height: 27px;
+    font-size: 16px;
+    @media (max-width: 767px) {
+        --start-bar-height: 40px;
+        font-size: 12px;
+    }
 }
 
 .title-bar-text {
@@ -37,6 +42,7 @@ body {
                 overflow: scroll;
                 height: 100%;
                 width: fit-content;
+
                 li {
                     button {
                         all: unset;
@@ -156,6 +162,7 @@ body {
             display: grid;
             grid-auto-flow: column;
             font-size: 1rem;
+            width: auto;
             > div {
                 display: none;
                 padding-right: 0.5rem;
@@ -167,6 +174,9 @@ body {
                     display: block;
                 }
                 max-width: 768px;
+                @media (max-width: 767px) {
+                    max-width: 100%;
+                }
             }
             figure {
                 display: flex;
@@ -203,6 +213,10 @@ body {
         align-items: center;
         justify-content: center;
         margin: 2px;
+        @media (max-width: 767px) {
+            flex-direction: column;
+            padding: 0px;
+        }
         &[aria-pressed="true"] {
             box-shadow:
                 inset -1px -1px #ffffff,
@@ -216,7 +230,10 @@ body {
 
         span {
             margin-left: 5px;
-            font-size: 14px;
+            font-size: 0.875rem;
+            @media (max-width: 767px) {
+                margin-left: 0;
+            }
         }
     }
 }
@@ -275,10 +292,10 @@ button img {
 
 .repos {
     display: grid;
-    grid-template-rows: repeat(auto-fit, 75px);
+    grid-template-rows: repeat(auto-fit, 4.69rem);
     grid-auto-flow: column;
     padding-top: 1rem;
-    grid-auto-columns: 70px;
+    grid-auto-columns: 4.38rem;
     height: calc(100% - 28px);
     width: 100%;
     box-sizing: border-box;
@@ -286,9 +303,10 @@ button img {
     row-gap: 1rem;
 
     .repo {
+        width: fit-content;
         display: grid;
         grid-auto-flow: row;
-        gap: 8px;
+        gap: 0.5rem;
         align-items: start;
         place-items: center;
         text-align: center;
@@ -296,17 +314,19 @@ button img {
         text-decoration: none;
 
         img {
-            width: 32px;
+            width: 2rem;
         }
 
         span {
             color: white;
-            font-size: 11px;
             display: block;
-            width: 70px;
+            width: 4.38rem;
+            @media (max-width: 767px) {
+                width: 3.13rem;
+            }
             word-break: break-word;
             overflow-wrap: break-word;
-            font-size: 11px;
+            font-size: 0.69rem;
             line-height: 1.2;
             font-weight: 500;
         }

@@ -16,11 +16,7 @@
                 <input type="email" name="email" id="email" placeholder="email"/>
                 <input type="text" name="subject" id="subject" placeholder="subject*" maxlength="164" required/>
                 <textarea name="body" id="body" placeholder="message" required></textarea>
-                <button id="send" type="submit">
-                    <img src="/static/envelope.png" alt="envelope" />
-                    <span class="enabled">Send</span>
-                    <span class="disabled">Sending...</span>
-                </button>
+
                 <div
                   class="cf-turnstile"
                   data-sitekey={{ .TurnstileSiteKey }}
@@ -28,6 +24,11 @@
                   data-size="normal"
                   data-callback="onSuccess"
                 ></div>
+                <button id="send" type="submit">
+                    <img src="/static/envelope.png" alt="envelope" />
+                    <span class="enabled">Send</span>
+                    <span class="disabled">Sending...</span>
+                </button>
             </div>
 
         </form>
