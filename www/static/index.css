@@ -1,3 +1,7 @@
+html,
+body {
+    overflow: hidden;
+}
 body {
     background-color: #008080;
     width: 100%;
@@ -292,6 +296,7 @@ button img {
 }
 
 .repos {
+    overflow-x: auto;
     display: grid;
     grid-template-rows: repeat(auto-fit, 4.69rem);
     grid-auto-flow: column;
