@@ -302,7 +302,7 @@ button img {
     grid-auto-flow: column;
     padding-top: 1rem;
     grid-auto-columns: 4.38rem;
-    height: calc(100% - 28px);
+    height: calc(100% - var(--start-bar-height, 28px));
     width: 100%;
     box-sizing: border-box;
     column-gap: 0;
