@@ -12,6 +12,7 @@
     </div>
     <div class="window-body">
         <ul
+            id="skills-tree"
             class="tree-view"
             aria-selected="technical experience"
             role="radiogroup"
@@ -23,8 +24,10 @@
                 </button>
             </li>
             {{ template "tree" .Tech }}
+
         </ul>
         {{ .TechSkillsHtml }}
+        <button id="tree-toggle" aria-controls="skills-tree" aria-pressed="true"><img src="/static/tree.png" alt="toggle tree"></button>
     </div>
 </div>
 {{ end }}

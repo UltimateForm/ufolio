@@ -1,6 +1,7 @@
 html,
 body {
     overflow: hidden;
+    overscroll-behavior: auto;
 }
 body {
     background-color: #008080;
@@ -47,6 +48,12 @@ body {
                 height: 100%;
                 width: fit-content;
 
+                @media (max-width: 767px) {
+                    position: absolute;
+                    &[aria-hidden="true"] {
+                        display: none;
+                    }
+                }
                 li {
                     button {
                         all: unset;
@@ -56,6 +63,17 @@ body {
                             font-weight: bold;
                         }
                     }
+                }
+            }
+            button#tree-toggle {
+                display: none;
+                @media (max-width: 767px) {
+                    min-width: unset;
+                    width: fit-content;
+                    display: block;
+                    position: absolute;
+                    bottom: 0.5rem;
+                    left: 0.5rem;
                 }
             }
         }
@@ -180,6 +198,7 @@ body {
                 max-width: 768px;
                 @media (max-width: 767px) {
                     max-width: 100%;
+                    padding-bottom: 30px; /* giving some space below for tree toggle button */
                 }
             }
             figure {
@@ -199,6 +218,13 @@ body {
     }
 }
 
+button[aria-pressed="true"] {
+    box-shadow:
+        inset -1px -1px #ffffff,
+        inset 1px 1px #0a0a0a,
+        inset -2px -2px #dfdfdf,
+        inset 2px 2px #808080;
+}
 .start-bar {
     position: absolute;
     bottom: 0;
@@ -221,13 +247,7 @@ body {
             flex-direction: column;
             padding: 0px;
         }
-        &[aria-pressed="true"] {
-            box-shadow:
-                inset -1px -1px #ffffff,
-                inset 1px 1px #0a0a0a,
-                inset -2px -2px #dfdfdf,
-                inset 2px 2px #808080;
-        }
+
         &[aria-controls="about-me-window"] span {
             font-weight: bold;
         }

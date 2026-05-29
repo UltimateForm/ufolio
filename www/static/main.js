@@ -78,35 +78,8 @@ document.addEventListener("DOMContentLoaded", function () {
   wins.forEach(function (win) {
     dragElement(win);
 
-    win.querySelectorAll(".tree-view").forEach((view) => {
-      function toggleDisplay(toDisable, toEnable) {
-        disableTarget = win.querySelector(`#${toDisable}`);
-        enableTarget = win.querySelector(`#${toEnable}`);
-        disableTarget?.setAttribute("aria-hidden", "true");
-        enableTarget?.setAttribute("aria-hidden", "false");
-      }
-
-      // // const keyMap = new Map();
-      // view.querySelectorAll("button").forEach((btn) => {
-      //   btn.addEventListener("click", function (e) {
-      //     e.preventDefault();
-      //     const currentSelected = view.ariaSelected;
-      //     const currentBtn = view.querySelector(
-      //       `[aria-controls="${currentSelected}"]`,
-      //     );
-      //     // win.querySelector(`#${currentSelected}`);
-      //     currentBtn?.setAttribute("aria-checked", false);
-      //     btn.setAttribute("aria-checked", true);
-      //     // const toSelect = btn.getAttribute("aria-controls");
-      //     view.setAttribute("aria-selected", btn.getAttribute("aria-controls"));
-
-      //     // toggleDisplay(currentSelected, toSelect);
-      //   });
-      // });
-    });
-
     win.addEventListener("focus", function () {
-      document.querySelectorAll(".window[aria-current]").forEach(w => {
+      document.querySelectorAll(".window[aria-current]").forEach((w) => {
         w.removeAttribute("aria-current");
       });
       win.setAttribute("aria-current", "page");
@@ -197,5 +170,16 @@ document.addEventListener("DOMContentLoaded", function () {
       svg.style.setProperty("--bg-color", colors.bg);
       svg.style.setProperty("--icon-color", colors.text);
     }
+  });
+
+  const skillsTree = document.querySelector("#skills-tree");
+  const treeToggleBtn = document.querySelector("#tree-toggle");
+  // this is just for mobile version of about-tech window, runs in desktop but low cost no-op
+  skillsTree.querySelectorAll("button[aria-controls]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      if (treeToggleBtn && window.innerWidth < 768) {
+        treeToggleBtn.click();
+      }
+    });
   });
 });
