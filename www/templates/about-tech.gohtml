@@ -26,8 +26,11 @@
             {{ template "tree" .Tech }}
 
         </ul>
-        {{ .TechSkillsHtml }}
+        <div class="skills">
+            {{ .TechSkillsHtml }}
+        </div>
         <button id="tree-toggle" aria-controls="skills-tree" aria-pressed="true"><img src="/static/tree.png" alt="toggle tree"></button>
+
     </div>
 </div>
 {{ end }}
