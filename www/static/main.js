@@ -124,6 +124,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const panelId = btn.getAttribute("aria-controls");
       const panel = document.getElementById(panelId);
       const isRadio = btn.getAttribute("role") === "radio";
+      const isTab = btn.parentElement.role === "tab";
       const btnStateKey = isRadio ? "aria-checked" : "aria-pressed";
       const isOpen = btn.getAttribute(btnStateKey) === "true";
       btn.setAttribute(btnStateKey, !isOpen);
@@ -158,6 +159,25 @@ document.addEventListener("DOMContentLoaded", function () {
                 ?.setAttribute("aria-hidden", true);
             }
           });
+      }
+
+      if (isTab) {
+        const parentLi = btn.parentElement;
+        const activeTab = parentLi.parentElement.querySelector(
+          "[aria-selected=true]",
+        );
+
+        if (activeTab) {
+          const activeTabBtn = activeTab?.querySelector(
+            "button[aria-controls]",
+          );
+          activeTabBtn?.removeAttribute("aria-pressed");
+          document
+            .getElementById(activeTabBtn?.getAttribute("aria-controls"))
+            ?.setAttribute("aria-hidden", true);
+          activeTab.removeAttribute("aria-selected");
+        }
+        parentLi.setAttribute("aria-selected", true);
       }
     });
   });

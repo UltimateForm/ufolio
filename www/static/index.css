@@ -126,7 +126,7 @@ body {
                 textarea {
                     font-size: 1rem;
                 }
-                textarea {
+                checked textarea {
                     resize: vertical;
                     height: 300px;
                 }
@@ -176,7 +176,35 @@ body {
             }
         }
     }
+    &#projects-window {
+        width: 768px;
+        height: 600px;
+        & > .window-body {
+            width: auto;
+            display: flex;
+            flex-direction: column;
+            & > .window {
+                margin: 0;
+            }
+        }
 
+        [role="tablist"] {
+            li > button {
+                all: unset;
+                color: #222;
+                display: block;
+                margin: 6px;
+                font-size: 1rem;
+                font-weight: 500;
+                &[aria-pressed="true"] {
+                    pointer-events: none;
+                }
+            }
+            [role="tabpanel"] {
+                height: inherit;
+            }
+        }
+    }
     &#about-tech-window {
         width: 768px;
         height: 600px;

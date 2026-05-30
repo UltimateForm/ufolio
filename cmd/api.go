@@ -18,7 +18,7 @@ func RunAPI() {
 
 	// i want to be able to change this without caring about cmd handlers
 	// so i am abstracting it into a separate internal package
-	router := corehttp.NewRouter("/").With(middlewares.EnforceEdge).With(middlewares.Logging).With(middlewares.CSP)
+	router := corehttp.NewRouter("/").With(middlewares.EnforceEdge).With(middlewares.Logging).With(middlewares.CSP).With(middlewares.Cache)
 
 	addStaticRoutes(router)
 
