@@ -1,0 +1,142 @@
+{{ define "projects-rcon" }}
+<h3>Python Days</h3>
+<p>
+    There is this one game called Mordhau that I have played a lot, before this
+    game - I'll be honest chief - my technical interest in these multiplayer
+    games was scant if non-existent. I mean I did know how to setup a minecraft
+    server and everything but beyond that I didn't really care, I remember
+    seeing people with these complicated softwares open where they managed the
+    stuff but it all felt like too much to me, as in too much commitment. The
+    closest I ever got to this technical side was handling some hamachi lan
+    groups back in the day, but this was really just routing connections, not so
+    much on the management side.
+</p>
+<figure>
+    <img src="static/img/hamachi.jpg" alt="hamachi" />
+    <figcaption>
+        LogMeIn Hamachi, LAN connection emulator, used for making game servers
+        more accessible
+    </figcaption>
+</figure>
+<p>
+    Around the start of 2024 I got engaged in Mordhau game server management,
+    and this is when I started seriously dealing with RCON. My first experience
+    here was setting up some basic management tooling on a discord server. RCON
+    knowledge was a requirement here so I started getting acquainted with this
+    software called {{ link "https://sourceforge.net/projects/ssrcdsrcon/"
+    "Simple SourceDS RCON" }}.
+</p>
+<figure>
+    <img src="static/img/simplercon.png" alt="simplercon" />
+    <figcaption>
+        Simple SourceDS RCON, RCON client for managing game servers <br />(great
+        software, never failed me, just missed some neat features)
+    </figcaption>
+</figure>
+<p>
+    I wasn't a big fan of this software, and I felt like I could do better -
+    foreshadowing - but let's move on. My first project of this sort was
+    something called Tailwagger.
+</p>
+<figure>
+    <img src="static/img/tailwagger.png" alt="tailwagger" />
+</figure>
+<p>
+    This was a simple RCON client bot that served as bridge between discord and
+    the game server. This allowed the game server to have a richer presence in
+    discord. We are talking about things like a local server status display,
+    player management, and automated server maintenance.
+</p>
+<p>
+    After this initial poodle-deep dive into RCON and discord APIs I began
+    working on greater gameification aspects such as dynamic titles, player
+    achievements, and other immersive game experiences I could implement via
+    RCON. This is when I started feeling the limitation of my own tcp
+    understanding.
+</p>
+<p>
+    As I began needing greater throughput I found out that a single connection
+    wouldn't scale well, since each command sent over the connection would block
+    until it was acknowledged. My first solution was to adopt an ephemeral
+    connections strategy. This works well until you require handling dozens of
+    concurrent connections, as when you have a large number of players
+    triggering operations simultaneously you risk overloading either the server
+    or the client, in my case it seemed like the high rate of connection churn
+    (opening and closing connections) was the culprit.
+</p>
+<figure>
+    <img src="static/img/churn.png" alt="churn" />
+    <figcaption>example scenario</figcaption>
+</figure>
+<p>
+    Here I had to go back to the basics, as this was in fact a basic network
+    problem. I ended up on connection pooling. With connection pooling, I was
+    able to reuse connections across requests, reducing the overhead of opening
+    and closing connections. The way this "reuse" differs from what I initially
+    had - as in one connection I kept reusing - is that now I have a dynamic
+    number of staged connections (the pool) that can scale up and down
+    reactively to demand.
+</p>
+<figure>
+    <img src="static/img/pool.png" alt="pool" />
+    <figcaption>the approach I went with</figcaption>
+</figure>
+<p>
+    For this I needed greater contact with asyncio (the async lib I was using at
+    the time, because python doesn't have a native one for whatever reason), two
+    things especially:
+</p>
+<ul>
+    <li>
+        <strong>asyncio.Lock</strong>: a synchronization primitive that allows
+        locking resources across asyncio tasks so that only one task can access
+        a resource at a time
+    </li>
+    <li>
+        <strong>asyncio.Queue</strong>: a queue that allows tasks to communicate
+        with each other asynchronously; this is how pool clients could wait for
+        a connection to become available
+    </li>
+</ul>
+<p>
+    Ah! At this point I needed some greater control of the connections
+    themselves so I ended up abandoning the library I was using and implemented
+    my own - although heavily copied from that library - solution. One of the
+    main changes I did was replacing the socket (native python lib) usage with
+    asyncio.StreamReader/Writer for greater asyncio compatibility. For event
+    streaming I used python's reactive extensions library (reactivex), which is
+    something I hadn't used since my C# days some years back.
+</p>
+<p>
+    Along the way I ran into some of asyncio's sharper edges. The first was task
+    garbage collection: <strong>asyncio.create_task</strong> only keeps a weak
+    reference to the task on the loop, so if you don't hold a reference to it
+    yourself somewhere, the task can just vanish mid-execution with no error - a
+    nasty thing to debug when it's a background job managing a live connection.
+    The second was event-loop binding: primitives like
+    <strong>asyncio.Lock</strong> and <strong>asyncio.Queue</strong> attach
+    themselves to whatever loop happens to be running at the moment they're
+    constructed, so creating one too early - before the real event loop was up
+    and running - would blow up with an "attached to a different loop" error.
+</p>
+<h3>Golang move</h3>
+<p>
+    Don't get me wrong, I still like Python, and asyncio did what it could - but
+    the async model wasn't great. I was, in fact, juggling three systems at once
+    just to accomplish my goals:
+</p>
+<ol>
+    <li>Python itself</li>
+    <li>asyncio</li>
+    <li>reactivex</li>
+</ol>
+<p>
+    Coincidentally, I had just gotten acquainted with Golang at work, and its
+    feature-complete async model was exactly what I needed.
+</p>
+<figure>
+    <img src="/static/img/skipping.jpg" alt="skipping steps" />
+    <figcaption>How I actually moved during my python days</figcaption>
+</figure>
+<p>This time I wanted to do it right, as in, no skipped steps</p>
+{{ end }}
