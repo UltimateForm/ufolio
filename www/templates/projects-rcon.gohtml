@@ -138,5 +138,55 @@
     <img src="/static/img/skipping.jpg" alt="skipping steps" />
     <figcaption>How I actually moved during my python days</figcaption>
 </figure>
-<p>This time I wanted to do it right, as in, no skipped steps</p>
+<p>
+    This time I wanted to do it right, as in, no skipped steps. So, I was
+    familiar enough with networking matters that I didn't have to spend a lot of
+    time down a rabbit hole - OSI models and classic network paradigms were a
+    heavy component of my initial training in the industry. Heck I was "lucky"
+    enough to have a short one year stint around cisco packet tracer on my
+    Networks and IT Management course!
+</p>
+<figure>
+    <img src="/static/img/cisco.webp" alt="cisco packet tracer" />
+</figure>
+<p>
+    But! This was never my strong point - I've always been more of a programming
+    guy than a networks guy - and this wasn't about to change, so I decided to
+    start immediately with deepening my IO handling ability. Last time I had to
+    do anything with byte streams for example was in NodeJS, something to do
+    with streaming an ndjson file by newline, and I embarrassed myself to the
+    point of installing a library to do that simple task.
+</p>
+<p>
+    A perfect exercise to get acquainted with tcp and IO streaming at the same
+    time is implementing your own HTTP parser from the RFCs alone, no library,
+    no "http client", simple tcp listener getting a bunch of seemingly gibberish
+    bytes and transforming them into HTTP packets, line by line. Here's a couple
+    of snippets of how that went:
+</p>
+<figure>
+    <img src="/static/img/nextLine.png" alt="line walker function" />
+    <figcaption>
+        function in charge of reading the next line in a bytes stream
+    </figcaption>
+</figure>
+<figure>
+    <img
+        src="/static/img/RequestFromReader.png"
+        alt="request builder function"
+    />
+    <figcaption>function in charge of coordinating request parsing</figcaption>
+</figure>
+<p>
+    More on {{ link "https://github.com/UltimateForm/gottp" "the actual repo"
+    }}.
+</p>
+<p>
+    This was essential for wrapping my head around how to navigate Valve RCON's
+    protocol. HTTP is, in essence, an agreement between two servers on how they
+    communicate. RCON is that, but smaller - way smaller - in scope.
+</p>
+<figure>
+    <img src="/static/img/valve-rcon.svg" alt="valve rcon diagram" />
+</figure>
 {{ end }}
