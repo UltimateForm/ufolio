@@ -189,4 +189,46 @@
 <figure>
     <img src="/static/img/valve-rcon.svg" alt="valve rcon diagram" />
 </figure>
+<p>
+    While the HTTP training helped me wrap my head around IO reading from streams
+    it didn't really educate me on how to be the writer of those packets,
+    especially in golang. LittleEndian was an initial boogeyman, I don't know,
+    I was so unfamiliar with the terminology that it scared me, but after watching a
+    video about it (I think from IBM youtube channel) it became awfully simple,
+    all about padding policy for the bytes representing a number. Speaking of
+    padding, I actually had a lot of fun learning about the packet structure,
+    it's not a challenging affair or anything but it was very fresh for me to
+    work on something so close to hardware, there was no abstraction here, just
+    me constructing the bytes that would be transmitted between two network
+    devices. Of course I'm simplifying it but the point is that I hadn't done
+    anything like this in a while.
+</p>
+<figure>
+    <img src="/static/img/firstPacketBuilder.png" alt="buildPacket function" />
+    <figcaption>
+        {{ link
+        "https://github.com/UltimateForm/tcprcon/blob/1f21ebd9837c66441163a99439d86371a3d4b384/internal/packet/builder.go"
+        "My first iteration of the buildPacket function" }}
+    </figcaption>
+</figure>
+<p>
+    At the beginning I didn't really know what I wanted to do with this project,
+    as in whether it would be a library or an app, so the whole project was
+    itself a simple command line program that ran this loop that read from
+    STDIN, converted into an RCON packet (built by the function above) and sent
+    it over the connection.
+</p>
+<figure>
+    <img src="/static/img/mainLoopFirstIterationRcon.png" />
+    <figcaption>
+        {{ link
+        "https://github.com/UltimateForm/tcprcon/blob/1f21ebd9837c66441163a99439d86371a3d4b384/main.go"
+        "first iteration of the program's main loop" }}
+    </figcaption>
+</figure>
+<p>
+    It started by reading the connection details (address, port, password, etc)
+    from environment variables, opening that connection, sending the first auth
+    packet, and then running that loop. Very simple but enough to prove the concept.
+</p>
 {{ end }}
